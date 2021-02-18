@@ -24,6 +24,25 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     public List<Datum> getDatums() {
         return datums;
     }
+    private OnUserClickListener onUserClickListener;
+    private OnReachEndListener onReachEndListener;
+
+
+    public interface OnUserClickListener{
+        void onUserClick(int position);
+    }
+
+    public interface OnReachEndListener{
+        void onReachEnd();
+    }
+
+    public void setOnReachEndListener(OnReachEndListener onReachEndListener) {
+        this.onReachEndListener = onReachEndListener;
+    }
+
+    public void setOnUserClickListener(OnUserClickListener onUserClickListener) {
+        this.onUserClickListener = onUserClickListener;
+    }
 
     public void setDatums(List<Datum> datums) {
         this.datums = datums;
@@ -39,6 +58,9 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
+        if (position > datums.size() - 4 && onReachEndListener != null){
+            onReachEndListener.onReachEnd();
+        }
         Datum datum = datums.get(position);
         holder.textViewID.setText(datum.getId());
         holder.textViewName.setText(datum.getName());
@@ -74,6 +96,14 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             textViewLat = itemView.findViewById(R.id.textViewLat);
             textViewLon = itemView.findViewById(R.id.textViewLon);
             imageViewAvatar = itemView.findViewById(R.id.imageViewAvatar);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onUserClickListener != null){
+                        onUserClickListener.onUserClick(getAdapterPosition());
+                    }
+                }
+            });
 
 
         }

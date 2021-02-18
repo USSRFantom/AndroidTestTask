@@ -51,14 +51,19 @@ public class Users extends AppCompatActivity {
                         Toast.makeText(Users.this, throwable.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
-
-
-
-
-
-
+        adapter.setOnUserClickListener(new UserAdapter.OnUserClickListener() {
+            @Override
+            public void onUserClick(int position) {
+                Toast.makeText(Users.this, "Click " + position, Toast.LENGTH_SHORT).show();
+            }
+        });
+        adapter.setOnReachEndListener(new UserAdapter.OnReachEndListener() {
+            @Override
+            public void onReachEnd() {
+                Toast.makeText(Users.this, "Конец списка", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
-
     @Override
     protected void onDestroy() {
         if (disposable != null){
