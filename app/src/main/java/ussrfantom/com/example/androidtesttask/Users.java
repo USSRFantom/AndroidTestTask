@@ -5,17 +5,26 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 import ussrfantom.com.example.androidtesttask.adapters.UserAdapter;
+import ussrfantom.com.example.androidtesttask.api.ApiFactory;
+import ussrfantom.com.example.androidtesttask.api.ApiService;
 import ussrfantom.com.example.androidtesttask.pojo.Datum;
+import ussrfantom.com.example.androidtesttask.pojo.Example;
 
 public class Users extends AppCompatActivity {
 
     private RecyclerView recyclerViewUsers;
     private UserAdapter adapter;
+    private Disposable disposable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,27 +32,38 @@ public class Users extends AppCompatActivity {
         setContentView(R.layout.activity_users);
         recyclerViewUsers= findViewById(R.id.recyclerViewUsers);
         adapter = new UserAdapter();
+        adapter.setDatums(new ArrayList<Datum>());
         recyclerViewUsers.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewUsers.setAdapter(adapter);
-        List<Datum> datums = new ArrayList<>();
-        Datum datum = new Datum();
-        Datum datum1 = new Datum();
-        datum.setId("32423423423");
-        datum.setName("Loli");
-        datum.setCountry("Russia");
-        datum.setLat("12312312");
-        datum.setLon("3423423");
-        datum1.setId("323123121223");
-        datum1.setName("Gogi");
-        datum1.setCountry("USA");
-        datum1.setLat("112312");
-        datum1.setLon("31213423");
-        datums.add(datum);
-        datums.add(datum1);
-        adapter.setDatums(datums);
+        ApiFactory apiFactory = ApiFactory.getInstance();
+        ApiService apiService = ApiFactory.getApiService();
+        disposable =  apiService.getExample()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Example>() {
+                    @Override
+                    public void accept(Example example) throws Exception {
+                        adapter.setDatums(example.getData());
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        Toast.makeText(Users.this, throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
 
 
 
 
+
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (disposable != null){
+            disposable.dispose();
+        }
+        super.onDestroy();
     }
 }
