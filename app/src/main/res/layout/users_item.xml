@@ -14,8 +14,8 @@
 
         <ImageView
             android:id="@+id/imageViewAvatar"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
@@ -30,12 +30,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:text="@string/id"
             app:layout_constraintStart_toEndOf="@+id/imageViewAvatar"
             app:layout_constraintTop_toTopOf="parent"
             android:textColor="@color/white"
-            android:textSize="18sp"
+            android:textSize="8sp"
             android:textAllCaps="true"/>
 
         <TextView
@@ -48,7 +48,7 @@
             app:layout_constraintStart_toEndOf="@+id/imageViewAvatar"
             app:layout_constraintTop_toBottomOf="@+id/textViewFildId"
             android:textColor="@color/white"
-            android:textSize="18sp"
+            android:textSize="8sp"
             android:textAllCaps="true"/>
 
         <TextView
@@ -61,7 +61,7 @@
             app:layout_constraintStart_toEndOf="@+id/imageViewAvatar"
             app:layout_constraintTop_toBottomOf="@+id/textViewFildName"
             android:textColor="@color/white"
-            android:textSize="18sp"
+            android:textSize="8sp"
             android:textAllCaps="true"/>
 
         <TextView
@@ -74,7 +74,7 @@
             app:layout_constraintStart_toEndOf="@+id/imageViewAvatar"
             app:layout_constraintTop_toBottomOf="@+id/textViewFildCountry"
             android:textColor="@color/white"
-            android:textSize="18sp"
+            android:textSize="8sp"
             android:textAllCaps="true"/>
 
         <TextView
@@ -89,7 +89,7 @@
             app:layout_constraintStart_toEndOf="@+id/imageViewAvatar"
             app:layout_constraintTop_toBottomOf="@+id/textViewFildLat"
             android:textColor="@color/white"
-            android:textSize="18sp"
+            android:textSize="8sp"
             android:textAllCaps="true"/>
 
         <TextView
@@ -100,7 +100,7 @@
             android:layout_marginTop="10dp"
             app:layout_constraintStart_toEndOf="@+id/textViewFildId"
             app:layout_constraintTop_toTopOf="parent"
-            android:textSize="18sp"
+            android:textSize="8sp"
             android:textAllCaps="true"/>
 
         <TextView
@@ -111,7 +111,7 @@
             android:layout_marginTop="10dp"
             app:layout_constraintStart_toEndOf="@+id/textViewFildName"
             app:layout_constraintTop_toBottomOf="@+id/textViewID"
-            android:textSize="18sp"
+            android:textSize="8sp"
             android:textAllCaps="true"/>
 
         <TextView
@@ -122,7 +122,7 @@
             android:layout_marginTop="10dp"
             app:layout_constraintStart_toEndOf="@+id/textViewFildCountry"
             app:layout_constraintTop_toBottomOf="@+id/textViewName"
-            android:textSize="18sp"
+            android:textSize="8sp"
             android:textAllCaps="true"/>
 
         <TextView
@@ -133,7 +133,7 @@
             android:layout_marginTop="10dp"
             app:layout_constraintStart_toEndOf="@+id/textViewFildLat"
             app:layout_constraintTop_toBottomOf="@+id/textViewCountry"
-            android:textSize="18sp"
+            android:textSize="8sp"
             android:textAllCaps="true"/>
 
         <TextView
@@ -141,12 +141,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:layout_marginBottom="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textViewFildLon"
             app:layout_constraintTop_toBottomOf="@+id/textViewLat"
-            android:textSize="18sp"
+            android:textSize="8sp"
             android:textAllCaps="true"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

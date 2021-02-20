@@ -45,7 +45,12 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     }
 
     public void setDatums(List<Datum> datums) {
-        this.datums = datums;
+        if (this.datums != null){
+            this.datums.addAll(datums);
+        }else{
+            this.datums = datums;
+        }
+
         notifyDataSetChanged();
     }
 
@@ -58,9 +63,10 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
-        if (position > datums.size() - 4 && onReachEndListener != null){
+        if (position == datums.size() - 1 && onReachEndListener != null){
             onReachEndListener.onReachEnd();
         }
+        Log.i("Position", position+ " " + datums.size());
         Datum datum = datums.get(position);
         holder.textViewID.setText(datum.getId());
         holder.textViewName.setText(datum.getName());
@@ -68,9 +74,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         holder.textViewLat.setText(datum.getLat());
         holder.textViewLon.setText(datum.getLon());
         Picasso.get().load("https://thumbs.dreamstime.com/b/о-но-eggs-с-стороной-35188083.jpg").into(holder.imageViewAvatar);
-
-
-
     }
 
     @Override

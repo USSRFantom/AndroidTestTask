@@ -25,6 +25,10 @@ public class Users extends AppCompatActivity {
     private RecyclerView recyclerViewUsers;
     private UserAdapter adapter;
     private Disposable disposable;
+    private List<Datum> datums;
+    private Datum datum;
+    private String code;
+    private int page;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +39,36 @@ public class Users extends AppCompatActivity {
         adapter.setDatums(new ArrayList<Datum>());
         recyclerViewUsers.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewUsers.setAdapter(adapter);
+        dataLoading();
+
+
+        adapter.setOnUserClickListener(new UserAdapter.OnUserClickListener() {
+            @Override
+            public void onUserClick(int position) {
+                Toast.makeText(Users.this, "Click " + position, Toast.LENGTH_SHORT).show();
+                datums = adapter.getDatums();
+                datum = datums.get(position);
+                Toast.makeText(Users.this, "Click " + datum.getName() + position, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        adapter.setOnReachEndListener(new UserAdapter.OnReachEndListener() {
+            @Override
+            public void onReachEnd() {
+                Toast.makeText(Users.this, "Конец списка", Toast.LENGTH_SHORT).show();
+                dataLoading();
+            }
+        });
+
+
+
+    }
+
+    public  void dataLoading(){
+        code = "4431084557";
         ApiFactory apiFactory = ApiFactory.getInstance();
         ApiService apiService = ApiFactory.getApiService();
-        disposable =  apiService.getExample()
+        disposable =  apiService.getExample(code, String.valueOf(page))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<Example>() {
@@ -51,19 +82,10 @@ public class Users extends AppCompatActivity {
                         Toast.makeText(Users.this, throwable.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
-        adapter.setOnUserClickListener(new UserAdapter.OnUserClickListener() {
-            @Override
-            public void onUserClick(int position) {
-                Toast.makeText(Users.this, "Click " + position, Toast.LENGTH_SHORT).show();
-            }
-        });
-        adapter.setOnReachEndListener(new UserAdapter.OnReachEndListener() {
-            @Override
-            public void onReachEnd() {
-                Toast.makeText(Users.this, "Конец списка", Toast.LENGTH_SHORT).show();
-            }
-        });
+        page++;
     }
+
+
     @Override
     protected void onDestroy() {
         if (disposable != null){
