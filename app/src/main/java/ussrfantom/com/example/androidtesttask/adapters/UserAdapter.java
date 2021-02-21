@@ -24,6 +24,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     public List<Datum> getDatums() {
         return datums;
     }
+
     private OnUserClickListener onUserClickListener;
     private OnReachEndListener onReachEndListener;
 

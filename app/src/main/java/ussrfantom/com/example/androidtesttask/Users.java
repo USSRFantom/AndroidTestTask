@@ -4,9 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,13 +52,20 @@ public class Users extends AppCompatActivity {
                 datums = adapter.getDatums();
                 datum = datums.get(position);
                 Toast.makeText(Users.this, "Click " + datum.getName() + position, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplication(), MapsActivity.class);
+                intent.putExtra("name", datum.getName());
+                intent.putExtra("id", datum.getCountry());
+                intent.putExtra("country", datum.getCountry());
+                intent.putExtra("lat", datum.getLat());
+                intent.putExtra("lon", datum.getLon());
+                startActivity(intent);
             }
         });
 
         adapter.setOnReachEndListener(new UserAdapter.OnReachEndListener() {
             @Override
             public void onReachEnd() {
-                Toast.makeText(Users.this, "Конец списка", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Users.this, "Подгружаем данные", Toast.LENGTH_SHORT).show();
                 dataLoading();
             }
         });
