@@ -38,6 +38,17 @@ public class Users extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_users);
         recyclerViewUsers= findViewById(R.id.recyclerViewUsers);
+
+        Bundle arguments = getIntent().getExtras();
+
+        if (arguments!=null){
+            System.out.println("ДАННЫЕ ПОЛУЧЕНЫ!");
+            code = arguments.get("code").toString();
+
+        }else{
+            System.out.println("ДАННЫЕ НЕ ПОЛУЧЕНЫ!");
+        }
+
         adapter = new UserAdapter();
         adapter.setDatums(new ArrayList<Datum>());
         recyclerViewUsers.setLayoutManager(new LinearLayoutManager(this));
@@ -75,10 +86,9 @@ public class Users extends AppCompatActivity {
     }
 
     public  void dataLoading(){
-        code = "4431084557";
         ApiFactory apiFactory = ApiFactory.getInstance();
         ApiService apiService = ApiFactory.getApiService();
-        disposable =  apiService.getExample(code, String.valueOf(page))
+        disposable =  apiService.getExample(Integer.parseInt(code), String.valueOf(page))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<Example>() {

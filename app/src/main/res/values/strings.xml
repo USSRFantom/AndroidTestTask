@@ -6,4 +6,7 @@
     <string name="lat">Lat:</string>
     <string name="lon">Lon:</string>
     <string name="title_activity_maps">Map</string>
+    <string name="add_name">Введите имя</string>
+    <string name="add_password">Введите пароль</string>
+    <string name="button_input">Войти</string>
 </resources>

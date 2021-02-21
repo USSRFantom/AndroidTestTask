@@ -9,7 +9,7 @@ import ussrfantom.com.example.androidtesttask.pojo.Example;
 public interface ApiService {
     @GET("data.cgi")
     Observable <Example> getExample(
-            @Query("code") String code,
+            @Query("code") int code,
             @Query("p") String page);
 
 
